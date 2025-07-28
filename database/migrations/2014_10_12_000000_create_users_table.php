@@ -16,8 +16,36 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email', 191)->unique();
+            $table->string('username', 31)->unique();
+            $table->string('profile_picture')->nullable();
+            $table->string('phone_number');
+            $table->enum('privLevel', ['support', 'supervisor', 'developer', 'admin', 'super_admin'])->default('support');
+            $table->unsignedBigInteger('devRoleID')->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('otp')->nullable();
+            $table->timestamp('otp_expires_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+
+        Schema::create('dev_roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('roleName');
+            $table->timestamps();
+        });
+
+        Schema::create('clients', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email', 191)->unique();
+            $table->string('username', 191)->unique();
+            $table->string('profile_picture')->nullable();
+            $table->string('phone_number');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('otp')->nullable();
+            $table->timestamp('otp_expires_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
@@ -32,5 +60,7 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('dev_roles');
+        Schema::dropIfExists('clients');
     }
 }

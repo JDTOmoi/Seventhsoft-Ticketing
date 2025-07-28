@@ -1,28 +1,41 @@
-@extends('layouts.app')
+@extends('layouts.form')
+@section('header-title', 'Verifikasi Email')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
+@section('form-title', 'Verifikasi Email')
 
-                <div class="card-body">
-                    @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
-                        </div>
-                    @endif
+@section('form-content')
 
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }},
-                    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-                    </form>
-                </div>
-            </div>
-        </div>
+@if (session('resent'))
+    <div style="margin-bottom: 16px; font-size: 14px; color: green;">
+        {{ __('Kode OTP telah dikirimkan lagi ke email Anda.') }}
     </div>
-</div>
+@endif
+
+<p>
+    Kode OTP enam angka tersebut telah dikirimkan ke akun email Anda yang bernama <strong>{{ Auth::user()->email }}</strong>.
+</p>
+
+<p>
+    Jika email belum masuk, klik <span onclick="duplicationPrevention(event, 'resend-form')" class="inline-form-link">disini</span> untuk mengirim kembali link verifikasi ke email tersebut.
+</p>
+
+<form id="resend-form" method="POST" action="{{ route('verification.resend') }}" style="display: none;">
+    @csrf
+</form>
+
+<form method="POST" id="form-form" action="{{ route('verification.verify') }}">
+    @csrf
+    <div class="form-group">
+        <label for="otp">Kode OTP</label>
+        <input id="otp" type="text" name="otp" style="width: 25%" required autofocus>
+        @error('otp')
+                <span style="color: red; font-size: 13px;">{{ $message }}</span>
+        @enderror
+    </div>
+
+    <div class="button-wrapper">
+        <button type="submit" class="submit-button" onclick="duplicationPrevention(event, 'form-form')">Verifikasi Email</button>
+    </div>
+</form>
 @endsection
+
