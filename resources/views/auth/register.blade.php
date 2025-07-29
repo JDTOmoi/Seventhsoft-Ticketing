@@ -19,6 +19,9 @@
     <div class="form-group">
         <label for="name">Nama Asli <span style="color: #E53B3B;">*</span></label>
         <input id="name" type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror">
+        @error('name')
+            <span style="color: red; font-size: 13px;">{{ $message }}</span>
+        @enderror
     </div>
 
     <div class="form-group">
@@ -41,7 +44,7 @@
         <label for="password">Password <span style="color: #E53B3B;">*</span></label>
 
         <div class="input-group w-100">
-            <input id="password" type="password" name="password" class="form-control" class="form-control @error('password') is-invalid @enderror">
+            <input id="password" type="password" name="password" class="form-control @error('password') is-invalid @enderror">
             <button type="button" class="btn btn-outline-secondary toggle-password" data-target="password">
                 <i class="fa fa-eye" id="eye-icon-password"></i>
             </button>
