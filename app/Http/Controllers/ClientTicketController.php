@@ -60,7 +60,7 @@ class ClientTicketController extends Controller
         ], [
             "title.required" => 'Mohon isi judul tiket Anda.',
             "app.required" => 'Mohon isi nama app yang Anda mempunyai masalah.',
-            "description.required" => 'Mohon isi deskripsi tentang ke.',
+            "description.required" => 'Mohon isi deskripsi tentang masalah yang Anda sedang mengalami terkait aplikasi tersebut.',
         ]);
 
         $ticket = ClientTicket::create([
@@ -96,7 +96,7 @@ class ClientTicketController extends Controller
                     $finalFileName = $newFileName;
                 }
                 array_push($filenames, strtolower($newFileName));
-                $file->storeAs('client_attachments', $finalFileName);
+                $file->storeAs('client_attachments', $finalFileName, 'public');
                 ClientAttachment::create([
                     'clientChatID' => $chat->id,
                     'name' => $finalFileName,
@@ -148,7 +148,7 @@ class ClientTicketController extends Controller
                     $finalFileName = $newFileName;
                 }
                 array_push($filenames, strtolower($newFileName));
-                $file->storeAs('client_attachments', $finalFileName);
+                $file->storeAs('client_attachments', $finalFileName, 'public');
                 ClientAttachment::create([
                     'clientChatID' => $chat->id,
                     'name' => $finalFileName,

@@ -90,7 +90,7 @@ class RegisterController extends Controller
             $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
             $newFileName = $user->id . '_' . preg_replace('/[^a-zA-Z0-9_-]/', '_', $originalName) . '.' . $extension;
-            $file->storeAs('users', $newFileName);
+            $file->storeAs('users', $newFileName, 'public');
             $user->profile_picture = $newFileName;
             $user->save();
         }

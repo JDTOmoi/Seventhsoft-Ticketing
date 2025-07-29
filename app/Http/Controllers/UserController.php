@@ -35,7 +35,7 @@ class UserController extends Controller
             if ($user->profile_picture && Storage::exists('users/' . $user->profile_picture)) {
                 Storage::delete('users/' . $user->profile_picture);
             }
-            $file->storeAs('users', $newFileName);
+            $file->storeAs('users', $newFileName, 'public');
             $user->profile_picture = $newFileName;
         }
 

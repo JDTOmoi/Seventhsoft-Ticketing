@@ -23,5 +23,5 @@
 @endsection
 
 @section('foot-info')
-    <img src="{{asset('storage/email-logo.png')}}" style="width: 7.5vw; min-width: 64px;" alt="logo"/>
+    <img src="{{asset('storage/email-logo - Copy.png')}}" style="width: 7.5vw; min-width: 64px;" alt="logo"/>
 @endsection

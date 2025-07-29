@@ -36,11 +36,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'otp_expires_at' => 'datetime',
     ];
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
-
     public function sendEmailVerificationNotification()
     {
         $otp = rand(100000, 999999);
