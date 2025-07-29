@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:5.5.62
+    container_name: mysql-5.5.62-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: v4rsign0sti
+      MYSQL_DATABASE: tickdeskkk
+      MYSQL_USER: soleilMichtar
+      MYSQL_PASSWORD: v4rsign0sti
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - laravel_net
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin-5.5.62
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: v4rsign0sti
+      UPLOAD_LIMIT: 64M
+    ports:
+      - "8089:80"
+    depends_on:
+      - db
+    networks:
+      - laravel_net
+
+volumes:
+  db_data:
+
+networks:
+  laravel_net:
+    driver: bridge
