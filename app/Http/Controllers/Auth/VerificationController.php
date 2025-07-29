@@ -30,7 +30,7 @@ class VerificationController extends Controller
 
     public function verify(Request $request)
     {
-        $request->validate(['otp' => 'required|digits:6']);
+        $request->validate(['otp' => 'required|digits:6'], ['otp.required' => 'OTP harus diisi.', 'otp.digits' => 'OTP harus mempunyai 6 angka.']);
 
         $user = $request->user();
 

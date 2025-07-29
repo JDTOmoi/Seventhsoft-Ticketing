@@ -27,12 +27,15 @@
 
     <div class="form-group">
         <label for="title">Judul <span style="color: #E53B3B;">*</span></label>
-        <input id="title" type="text" name="title" value="{{ old('title') }}" required autofocus>
+        <input id="title" type="text" name="title" value="{{ old('title') }}" autofocus>
+        @error('title')
+            <span style="color: red; font-size: 13px;">{{ $message }}</span>
+        @enderror
     </div>
 
     <div class="form-group">
         <label for="app">Aplikasi <span style="color: #E53B3B;">*</span></label>
-        <select id="app" name="app" required>
+        <select id="app" name="app">
             <option value="">-- Pilih Aplikasi --</option>
             @foreach($apps as $app)
                 <option value="{{ $app->id }}"
@@ -41,12 +44,18 @@
                 </option>
             @endforeach
         </select>
+        @error('app')
+            <span style="color: red; font-size: 13px;">{{ $message }}</span>
+        @enderror
     </div>
 
 
     <div class="form-group">
         <label for="description">Deskripsi Permasalahan <span style="color: #E53B3B;">*</span></label>
-        <textarea id="description" name="description" rows="4" style="resize: vertical;" required>{{ old('description') }}</textarea>
+        <textarea id="description" name="description" rows="4" style="resize: vertical;">{{ old('description') }}</textarea>
+        @error('description')
+            <span style="color: red; font-size: 13px;">{{ $message }}</span>
+        @enderror
     </div>
     
     <div class="form-attachment" id="drop-area">
@@ -72,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const formForm = document.getElementById('form-form');
 
     const allowedExts = ['png', 'jpg', 'jpeg', 'webp', 'pdf', 'docx'];
-    const maxSize = 2 * 1024 * 1024; // 10MB
+    const maxSize = 2 * 1024 * 1024; // 2MB
     const maxFiles = 4;
     let selectedFiles = [];
 

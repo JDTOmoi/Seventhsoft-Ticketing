@@ -9,7 +9,7 @@
 
     <div class="form-group">
         <label for="name">Nama Asli <span style="color: #E53B3B;">*</span></label>
-        <input id="name" type="text" name="name" value="{{ old('name', $u->name) }}" required autofocus>
+        <input id="name" type="text" name="name" value="{{ old('name', $u->name) }}" form-control @error('name') is-invalid @enderror" autofocus>
         @error('name')
             <span style="color: red; font-size: 13px;">{{ $message }}</span>
         @enderror

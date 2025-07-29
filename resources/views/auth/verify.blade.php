@@ -27,7 +27,7 @@
     @csrf
     <div class="form-group">
         <label for="otp">Kode OTP</label>
-        <input id="otp" type="text" name="otp" style="width: 25%" required autofocus>
+        <input id="otp" type="number" name="otp" class="form-control @error('otp') is-invalid @enderror" style="width: 25%"  autofocus>
         @error('otp')
                 <span style="color: red; font-size: 13px;">{{ $message }}</span>
         @enderror

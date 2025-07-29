@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -27,6 +29,28 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    protected function validateLogin(Request $request)
+    {
+        $request->validate(
+            [
+                $this->username() => 'required|email',
+                'password' => 'required|string',
+            ],
+            [
+                $this->username().'.required' => 'Mohon isi email Anda.',
+                $this->username().'.email'    => 'Mohon isi email yang sah.',
+                'password.required'           => 'Mohon isi password Anda.',
+            ]
+        );
+    }
+
+    protected function sendFailedLoginResponse(Request $request) //Override default wrong credentials message.
+    {
+        throw ValidationException::withMessages([
+            $this->username() => 'Email atau password Anda salah.',
+        ]);
+    }
 
     /**
      * Create a new controller instance.

@@ -10,7 +10,7 @@
 
     <div class="form-group">
         <label for="email">Email</label>
-        <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
+        <input id="email" type="text" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" autofocus>
         @error('email')
             <span style="color: red; font-size: 13px;">{{ $message }}</span>
         @enderror
@@ -20,7 +20,7 @@
         <label for="password">Password</label>
 
         <div class="input-group w-100">
-            <input id="password" type="password" name="password" class="form-control" required>
+            <input id="password" type="password" name="password" class="form-control @error('password') is-invalid @enderror">
             <button type="button" class="btn btn-outline-secondary toggle-password" data-target="password">
                 <i class="fa fa-eye" id="eye-icon-password"></i>
             </button>

@@ -47,6 +47,11 @@ class RegisterController extends Controller
             'profile_picture' => 'nullable|image|max:2048', // Optional
             'password' => 'required|min:8|confirmed',
         ],[
+            "name.required" => 'Mohon isi nama asli Anda.',
+            "email.required" => 'Mohon isi email Anda.',
+            "username.required" => 'Mohon isi username Anda.',
+            "phone_number.required" => 'Mohon isi nomor telepon Anda.',
+            "password.required" => 'Mohon isi password Anda.',
             "email.unique" => 'Email tersebut sudah dipakai.',
             "email.max" => 'Email harus dibawah 192 huruf.',
             'name.regex' => 'Nama hanya boleh berisi huruf dan spasi.',

@@ -56,7 +56,11 @@ class ClientTicketController extends Controller
             'app' => 'required|exists:applications,id',
             'description' => 'required|string|max:10000',
             'attachments' => 'nullable|array|max:4',
-            'attachments.*' => 'file|max:10240|mimes:jpg,jpeg,png,pdf,docx,webp' //Only these are supported to prevent malicious but thankfully stupid actors.
+            'attachments.*' => 'file|max:2048|mimes:jpg,jpeg,png,pdf,docx,webp' //Only these are supported to prevent malicious but thankfully stupid actors.
+        ], [
+            "title.required" => 'Mohon isi judul tiket Anda.',
+            "app.required" => 'Mohon isi nama app yang Anda mempunyai masalah.',
+            "description.required" => 'Mohon isi deskripsi tentang ke.',
         ]);
 
         $ticket = ClientTicket::create([
@@ -108,7 +112,7 @@ class ClientTicketController extends Controller
     {
         $request->validate([
             'response' => 'nullable|string|max:10000',
-            'attachments.*' => 'file|mimes:png,jpg,jpeg,webp,pdf,docx|max:10240', //Only these are supported to prevent malicious but thankfully stupid actors.
+            'attachments.*' => 'file|mimes:png,jpg,jpeg,webp,pdf,docx|max:2048', //Only these are supported to prevent malicious but thankfully stupid actors.
         ], [
             'attachments.*.mimes' => 'Hanya PNG, JPG, WEBP, PDF, atau DOCX diperbolehkan.',
             'attachments.*.max' => 'Ukuran file maximum adalah 10MB.',

@@ -140,7 +140,18 @@
             object-fit: contain;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
+        /* Disables input number UI */
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
 
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
     </style>
     @yield('style')
 </head>
@@ -232,6 +243,22 @@
             img.addEventListener('click', function () {
                 updatePictureLink(img.getAttribute('src'));
             });
+        });
+    });
+    //Disables decrement and increment for number inputs.
+    document.querySelectorAll('input[type=number]').forEach(function(input) {
+        input.addEventListener('keydown', function(e) {
+            const badKeys = ['e', 'E', '+', '-']; //We don't have any exponential values, so this blocks it.
+            if (badKeys.includes(e.key)) {
+                e.preventDefault();
+            }
+            if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                e.preventDefault();
+            }
+        });
+
+        input.addEventListener('wheel', function(e) {
+            e.preventDefault();
         });
     });
 </script>

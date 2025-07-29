@@ -12,7 +12,7 @@
     <div class="form-group">
         <label for="password">Password Baru</label>
         <div class="input-group w-100">
-            <input id="password" type="password" name="password" required
+            <input id="password" type="password" name="password"
                 class="form-control @error('password') is-invalid @enderror">
             <button type="button" class="btn btn-outline-secondary toggle-password" data-target="password">
                 <i class="fa fa-eye" id="eye-icon-password"></i>
@@ -25,7 +25,7 @@
 
     <div class="form-group">
         <label for="password-confirm">Konfirmasi Password</label>
-        <input id="password-confirm" type="password" name="password_confirmation" required
+        <input id="password-confirm" type="password" name="password_confirmation"
             class="form-control">
     </div>
     <div class="button-wrapper">

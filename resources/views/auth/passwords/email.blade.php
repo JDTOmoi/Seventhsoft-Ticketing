@@ -14,9 +14,9 @@
 
         <div class="form-group">
             <label for="email">Alamat Email</label>
-            <input id="email" type="email"
+            <input id="email" type="text"
                    class="form-control @error('email') is-invalid @enderror"
-                   name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                   name="email" value="{{ old('email') }}" autocomplete="email" autofocus>
 
             @error('email')
                 <span style="color: red; font-size: 13px;">

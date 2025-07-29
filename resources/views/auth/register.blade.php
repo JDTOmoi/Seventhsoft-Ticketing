@@ -10,7 +10,7 @@
 
     <div class="form-group">
         <label for="username">Username <span style="color: #E53B3B;">*</span></label>
-        <input id="username" type="text" name="username" value="{{ old('username') }}" class="@error('username') is-invalid @enderror" required autofocus>
+        <input id="username" type="text" name="username" value="{{ old('username') }}" class="form-control @error('username') is-invalid @enderror" autofocus>
         @error('username')
             <span style="color: red; font-size: 13px;">{{ $message }}</span>
         @enderror
@@ -18,12 +18,12 @@
 
     <div class="form-group">
         <label for="name">Nama Asli <span style="color: #E53B3B;">*</span></label>
-        <input id="name" type="text" name="name" value="{{ old('name') }}" class="@error('name') is-invalid @enderror" required autofocus>
+        <input id="name" type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror">
     </div>
 
     <div class="form-group">
         <label for="phone_number">Nomor Telepon <span style="color: #E53B3B;">*</span></label>
-        <input id="phone_number" type="phone_number" name="phone_number" class="@error('phone_number') is-invalid @enderror" value="{{ old('phone_number') }}" required>
+        <input id="phone_number" type="text" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ old('phone_number') }}">
         @error('phone_number')
             <span style="color: red; font-size: 13px;">{{ $message }}</span>
         @enderror
@@ -31,7 +31,7 @@
 
     <div class="form-group">
         <label for="email">Email <span style="color: #E53B3B;">*</span></label>
-        <input id="email" type="email" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required>
+        <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
         @error('email')
             <span style="color: red; font-size: 13px;">{{ $message }}</span>
         @enderror
@@ -41,7 +41,7 @@
         <label for="password">Password <span style="color: #E53B3B;">*</span></label>
 
         <div class="input-group w-100">
-            <input id="password" type="password" name="password" class="form-control" class="@error('password') is-invalid @enderror" required>
+            <input id="password" type="password" name="password" class="form-control" class="form-control @error('password') is-invalid @enderror">
             <button type="button" class="btn btn-outline-secondary toggle-password" data-target="password">
                 <i class="fa fa-eye" id="eye-icon-password"></i>
             </button>
@@ -53,7 +53,7 @@
 
     <div class="form-group">
         <label for="password_confirmation">Konfirmasi Password <span style="color: #E53B3B;">*</span></label>
-        <input id="password_confirmation" type="password" name="password_confirmation" class="@error('password_confirmation') is-invalid @enderror" required>
+        <input id="password_confirmation" type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror">
         @error('password_confirmation')
             <span style="color: red; font-size: 13px;">{{ $message }}</span>
         @enderror
