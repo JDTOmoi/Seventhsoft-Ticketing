@@ -10,6 +10,8 @@ use App\Models\Application;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
+use Kreait\Firebase\Factory;
+
 class ClientTicketController extends Controller
 {
     public function index()
@@ -105,6 +107,8 @@ class ClientTicketController extends Controller
             }
         }
 
+        $this->pushChatToFirebase($chat);
+
         return redirect()->route('chat', ['t' => $ticket->id]);
     }
 
@@ -127,6 +131,7 @@ class ClientTicketController extends Controller
             'type' => 'client',
             'response' => $request->response,
         ]);
+
         if ($request->hasFile('attachments')) {
             $filenames = [];
             foreach ($request->file('attachments') as $file) {
@@ -157,6 +162,8 @@ class ClientTicketController extends Controller
             }
         }
 
+        $this->pushChatToFirebase($chat);
+
         return back();
     }
 
@@ -165,5 +172,30 @@ class ClientTicketController extends Controller
         $t->status = "DITUTUP";
         $t->save();
         return back();
+    }
+
+    private function pushChatToFirebase(ClientChat $chat)
+    {   
+        //Database URI is used since this machine is using an old version of firebase and always defaults to the old link.
+        $factory = (new Factory)->withServiceAccount(base_path(config('firebase.credentials.file')))->withDatabaseUri(config('firebase.credentials.url')); 
+        $db = $factory->createDatabase();
+
+        $ticketId = $chat->ticketID;
+        $attachments = $chat->attachments->map(function ($a) {
+            return [
+                'name' => $a->name,
+                'extension' => $a->extension,
+                'url' => asset('storage/client_attachments/' . $a->name)
+            ];
+        });
+
+        $db->getReference("tickets/{$ticketId}/{$chat->id}")
+        ->set([
+                'id' => $chat->id,
+                'response' => $chat->response,
+                'type' => $chat->type,
+                'created_at' => $chat->created_at->toDateTimeString(),
+                'attachments' => $attachments,
+            ]);
     }
 }

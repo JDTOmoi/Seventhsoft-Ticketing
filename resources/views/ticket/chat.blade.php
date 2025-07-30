@@ -55,4 +55,28 @@
 
 @include('partials.chatscripts')
 
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script>
+  const firebaseConfig = {
+        apiKey: "AIzaSyBV2hBUPLMvp-H-tVT913G4dxfGhACsYA0",
+        authDomain: "seventhsoft-ticketing.firebaseapp.com",
+        projectId: "seventhsoft-ticketing",
+        storageBucket: "seventhsoft-ticketing.firebasestorage.app",
+        databaseURL: "https://seventhsoft-ticketing-default-rtdb.asia-southeast1.firebasedatabase.app",
+        messagingSenderId: "969424041134",
+        appId: "1:969424041134:web:6745ba3e6ab06d7786a93f"
+    };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  @if(isset($ct))
+    const ticketID = "{{ $ct->id }}";
+    db.ref('tickets/' + ticketID + '/').on('child_added', (snapshot) => {
+      const message = snapshot.val();
+      console.log("New message:", message);
+    });
+  @endif
+</script>
+
 @endsection
