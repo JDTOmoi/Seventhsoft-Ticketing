@@ -43,7 +43,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:191|regex:/^[a-zA-Z\s]{1,191}$/',
             'email' => 'required|unique:clients|max:191',
             'username' => 'required|unique:clients|max:31|min:8|regex:/^[a-zA-Z0-9]{8,31}$/',
-            'phone_number' => 'required|regex:/^([0-9\s\-\+\(\)]+)$/|min:10',
+            'phone_number' => 'required|regex:/^[0][0-9]{9,14}$/|min:10|max:15',
             'profile_picture' => 'nullable|image|max:2048', // Optional
             'password' => 'required|min:8|confirmed',
         ],[
@@ -60,7 +60,9 @@ class RegisterController extends Controller
             'username.regex' => 'Username hanya boleh berisi huruf besar, huruf kecil, dan angka, tanpa simbol atau spasi.',
             "username.max" => 'Username harus dibawah 32 huruf.',
             'name.max' => 'Nama pelanggan harus dibawah 192 huruf.',
-            'phone_number' => 'Nomor telepon tersebut tidak valid.',
+            'phone_number.regex' => 'Nomor telepon tersebut tidak valid.',
+            'phone_number.min' => 'Nomor telepon harus berupa 10 sampai 15 angka',
+            'phone_number.max' => 'Nomor telepon harus berupa 10 sampai 15 angka',
             'password.min' => 'Diperlukan 8 huruf atau lebih untuk password.',
             'password.confirmed' => 'Password tersebut tidak sama.'
         ]);

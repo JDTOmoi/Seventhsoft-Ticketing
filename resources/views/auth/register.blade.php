@@ -26,7 +26,7 @@
 
     <div class="form-group">
         <label for="phone_number">Nomor Telepon <span style="color: #E53B3B;">*</span></label>
-        <input id="phone_number" type="text" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ old('phone_number') }}">
+        <input id="phone_number" type="number" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ old('phone_number') }}">
         @error('phone_number')
             <span style="color: red; font-size: 13px;">{{ $message }}</span>
         @enderror
