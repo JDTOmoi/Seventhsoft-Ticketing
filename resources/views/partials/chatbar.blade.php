@@ -31,7 +31,7 @@
                         <ul id="attachment-preview" class="attachment-preview"></ul>
                         <p class="attachment-condition">Max. 4 file (PNG, JPG, PDF, DOCX, atau WEBP), ukuran tiap file max. 2MB</p>
                     </div>
-                    <button onclick="duplicationPrevention(event, 'chat-form')" type="submit" class="submitter disabled" id="chat-submit" disabled>
+                    <button type="submit" class="submitter disabled" id="chat-submit" disabled>
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </form>

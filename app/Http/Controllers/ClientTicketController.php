@@ -44,11 +44,19 @@ class ClientTicketController extends Controller
         $chats = ClientChat::whereIn('ticketID', $ticketIDs)->get();
         $c = ClientChat::where('ticketID', $t->id)->with('attachments')->get()->groupBy( function ($chat) { return Carbon::parse($chat->created_at)->format('Y-m-d'); } );
 
+        $timezone = session('user_timezone', config('app.timezone')); // automatic timezone setter, for the travelling seventhsoft users
+
+        $lastChat = ClientChat::where('ticketID', $t->id)->latest('created_at')->first();
+
+        //timezone thing makes sure that the time is in the correct time zone.
+        $lastChatDateLocal = $lastChat ? Carbon::parse($lastChat->created_at)->timezone($timezone)->toDateString() : null;
+
         return view('ticket/chat',[
             "tickets" => $tickets,
             "chats" => $chats,
             "ct" => $t,
             "cc" => $c,
+            "lastChatLocalDate" => $lastChatDateLocal
         ]);
     }
 
