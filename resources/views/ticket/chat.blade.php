@@ -229,18 +229,34 @@
     const imageHtml = images.length ? createImageGrid(images) : '';
     const docHtml = docs.length ? createDocGrid(docs, chat.id) : '';
 
-    const chatRow = `
-      ${imageHtml}
-      ${docHtml}
-      <div class="chat-bubble-row" style="justify-content: flex-start;">
-        <div style="display: flex; align-items: flex-end;">
-          <img src="/storage/users/${user.profile_picture}" class="profile-pic" style="margin-right: 12px;">
-          ${responseHtml}
-          <span class="chat-time" style="margin-left: 12px;">${time}</span>
-          <span class="chat-status"><i class="fa-solid fa-clock"></i></span>
+    let chatRow = '';
+
+    let hasText = !!chat.response?.trim();
+    let hasImages = images.length > 0;
+    let hasDocs = docs.length > 0;
+
+    if (hasText || hasImages || hasDocs) {
+      chatRow = '';
+
+      if (hasText && hasImages) chatRow += imageHtml;
+      if (hasText && hasDocs) chatRow += docHtml;
+      if (!hasText && hasImages && hasDocs) chatRow += imageHtml;
+
+      chatRow += `
+        <div class="chat-bubble-row" style="justify-content: flex-start;">
+          <div style="display: flex; align-items: flex-end;">
+            <img src="/storage/users/${user.profile_picture}" class="profile-pic" style="margin-right: 12px;">
+            ${hasText ? responseHtml : ''}
+            ${!hasText && hasImages && !hasDocs ? imageHtml : ''}
+            ${!hasText && !hasImages && hasDocs ? docHtml : ''}
+            ${!hasText && hasImages && hasDocs ? docHtml : ''}
+            <span class="chat-time" style="margin-left: 12px;">${time}</span>
+            <span class="chat-status"><i class="fa-solid fa-clock"></i></span>
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    }
+
 
     // TODO: Restructure the chatRow html when images and docs are present. Checklist for properly implemented rows. 
     // TXT only     V

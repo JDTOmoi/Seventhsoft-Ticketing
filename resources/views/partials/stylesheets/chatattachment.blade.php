@@ -86,4 +86,8 @@
         flex-wrap: wrap;
         gap: 8px;
     }    
+
+    .chat-bubble-row .chat-attachments-wrapper {
+        margin-bottom: 0;
+    }
 </style>
