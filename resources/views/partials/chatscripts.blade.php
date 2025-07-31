@@ -67,6 +67,36 @@
 </script>
 
 <script> //Close chat and attachment forms
+let selectedFiles = []; //Made into global so that it can be sent in the post request.
+
+function validateInputs() {
+    const messageInput = document.getElementById('chat-message');
+    const hasText = messageInput.value.trim().length > 0;
+    const submitBtn = document.getElementById('chat-submit');
+    const allowedExts = ['png', 'jpg', 'jpeg', 'pdf', 'docx', 'webp'];
+    const maxSize = 2 * 1024 * 1024;
+    const maxFiles = 4;
+    let validFiles = true;
+
+    if (selectedFiles.length > 0) {
+        if (selectedFiles.length > maxFiles) {
+            validFiles = false;
+        }
+
+        for (const file of selectedFiles) {
+            const ext = file.name.split('.').pop().toLowerCase();
+            if (!allowedExts.includes(ext) || file.size > maxSize) {
+                validFiles = false;
+                break;
+            }
+        }
+    }
+
+    // Enable if there's text OR (valid files AND not empty)
+    submitBtn.disabled = !(hasText || (selectedFiles.length > 0 && validFiles));
+    submitBtn.classList.toggle('disabled', submitBtn.disabled);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const dropArea = document.getElementById('drop-area');
     const hiddenFileInput = document.getElementById('chat-attachments');
@@ -84,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const allowedExts = ['png', 'jpg', 'jpeg', 'pdf', 'docx', 'webp'];
     const maxSize = 2 * 1024 * 1024;
     const maxFiles = 4;
-    let selectedFiles = [];
+    
 
     // Close chat toggle
     if (closeTrigger && confirmBox && cancelBtn) {
@@ -106,29 +136,6 @@ document.addEventListener('DOMContentLoaded', function () {
             attachmentMenu.style.display = attachmentMenu.style.display === 'block' ? 'none' : 'block';
             positionPopupForms();
         });
-    }
-
-    function validateInputs() {
-        const hasText = messageInput.value.trim().length > 0;
-        let validFiles = true;
-
-        if (selectedFiles.length > 0) {
-            if (selectedFiles.length > maxFiles) {
-                validFiles = false;
-            }
-
-            for (const file of selectedFiles) {
-                const ext = file.name.split('.').pop().toLowerCase();
-                if (!allowedExts.includes(ext) || file.size > maxSize) {
-                    validFiles = false;
-                    break;
-                }
-            }
-        }
-
-        // Enable if there's text OR (valid files AND not empty)
-        submitBtn.disabled = !(hasText || (selectedFiles.length > 0 && validFiles));
-        submitBtn.classList.toggle('disabled', submitBtn.disabled);
     }
 
     function updatePreview() {
