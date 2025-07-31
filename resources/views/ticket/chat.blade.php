@@ -68,10 +68,13 @@
         e.preventDefault(); // Prevent page reload
 
         const messageInput = document.getElementById('chat-message');
+        const submitBtn = document.getElementById('chat-submit');
+
         const message = messageInput.value.trim(); //Transferred to another variable because apparently, doing it all in one go poofs the text to nonexistence before reaching the request.
         if (!message) return;
 
         messageInput.value = '';
+        submitBtn.classList.toggle('disabled', true);
 
         const formData = new FormData();
         formData.append('ticket_id', "{{ $ct->id }}");
@@ -86,6 +89,7 @@
         });
 
         messageInput.value = ''; //just in case it misses.
+        submitBtn.classList.toggle('disabled', true);
     });
   @endif
 </script>
