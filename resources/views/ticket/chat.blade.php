@@ -260,12 +260,12 @@
 
     // TODO: Restructure the chatRow html when images and docs are present. Checklist for properly implemented rows. 
     // TXT only     V
-    // IMG only     X
-    // DOC only     X
-    // TXT + IMG    X
-    // TXT + DOC    X
-    // IMG + DOC    X
-    // ALL THREE    X
+    // IMG only     V
+    // DOC only     V
+    // TXT + IMG    V
+    // TXT + DOC    V
+    // IMG + DOC    V
+    // ALL THREE    V
 
     // TODO: Same as here but do it again for the support. Theoretically cannot be properly done until other group finishes.
     // TXT only     X
