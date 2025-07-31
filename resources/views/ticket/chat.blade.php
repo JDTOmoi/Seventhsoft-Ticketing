@@ -56,11 +56,14 @@
 @include('partials.chatscripts')
 
 <script>
+  @if(isset($ct)) // Null failsafe, used when opening app for first time
     window.lastChatLocalDate = @json($lastChatLocalDate); //See ClientTicketController viewChat() for more details.
     //console.log(window.lastChatLocalDate);
+  @endif
 </script>
 
 <script> //Custom POST request to prevent browser refreshes.
+  @if(isset($ct)) // Null failsafe, used when opening app for first time
     document.getElementById('chat-form').addEventListener('submit', async function(e) {
         e.preventDefault(); // Prevent page reload
 
@@ -84,6 +87,7 @@
 
         messageInput.value = ''; //just in case it misses.
     });
+  @endif
 </script>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
