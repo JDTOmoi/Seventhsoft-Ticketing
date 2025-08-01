@@ -205,5 +205,8 @@ class ClientTicketController extends Controller
                 'created_at' => $chat->created_at->toDateTimeString(),
                 'attachments' => $attachments,
             ]);
+        
+        //Immediately remove chat cuz we just need it to store the real time thing.
+        $db->getReference("tickets/{$ticketId}/{$chat->id}")->remove();
     }
 }
