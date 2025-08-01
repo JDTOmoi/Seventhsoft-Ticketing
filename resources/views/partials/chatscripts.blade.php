@@ -209,6 +209,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const dataTransfer = new DataTransfer();
         selectedFiles.forEach(file => dataTransfer.items.add(file));
         hiddenFileInput.files = dataTransfer.files;
+        hiddenFileInput.value = ''; //fixes bug where it is not attaching previously sent files.
     });
 });
 
